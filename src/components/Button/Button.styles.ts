@@ -10,7 +10,7 @@ const COLORS = {
 
 const THEME = {
     danger: {
-        bg: '#F84735',
+        bg: COLORS.red,
         color: '#FFFFFF',
         onHover:`
             box-shadow: 0 3px 6px rgba(0,0,0,.1);
