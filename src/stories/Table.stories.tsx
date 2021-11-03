@@ -121,7 +121,7 @@ export function Default () {
 }
 
 
-export function NoData () {
+export function WithoutData () {
   const data = useMemo<Post[]>(
     () => [],
     []
@@ -173,5 +173,7 @@ export function NoData () {
 
   const instance = useTable<Post>({data, columns})
 
-  return <Table<Post> instance = {instance} />
+  return <div style= {{width: 720}} >
+    <Table<Post> instance = {instance} />
+  </div> 
 }
