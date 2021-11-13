@@ -1,12 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import UserView from './views/User.view';
+import NotFound from './views/NotFound404.view';
+import Home from './views/Home.view';
+
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <div>YOLO</div>
+      <Routes>
+        <Route path='/home' element={<Home />} />
+        <Route path= '/usuario/:userId/' element={<UserView />} >
+          <Route path=':key' element={<UserView />}/>
+        </Route>
+        <Route path= '*' element= {<NotFound />}/>
+      </Routes>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );

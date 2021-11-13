@@ -15,10 +15,10 @@ export default function ProgressBar (props:ProgressBarProps) {
   </ProgressBarBase>
 }
 
-const COLOR = {
-  primary: '#0099FF',
-  secondary: '#274060'
-}
+// const COLOR = {
+//   primary: '#0099FF',
+//   secondary: '#274060'
+// }
 
 const ProgressBarBase = styled.div`
   position: relative;
@@ -33,10 +33,9 @@ const ProgressBarBase = styled.div`
   `
 
 const CurrentProgress = styled.div<{
-  theme: 'primary' | 'secondary'
+  theme: 'primary' | 'secondary',
   progress: number
-}>
-`
+}>`
 position: absolute;
 text-indent: 8px;
 padding: 4px 0;
@@ -44,15 +43,17 @@ overflow: hidden;
 text-transform: lowercase;
 white-space: nowrap;
 display: flex;
+
 &.back {
   width: 100%;
   color: #274060;
   padding: '15px';
   background-color: ${transparentize(0.85, '#244060')};
-}
+};
+
 &.front {
   width: ${p=>p.progress}%;
-  background-color: ${p=> COLOR[p.theme]};
+  background-color: ${p=>p.theme === 'primary' ? '#09f' : '#274060'};
   padding: '15px';
   color: #fff;
   z-index: 2;
@@ -61,4 +62,3 @@ display: flex;
   }
 `
 
-// const ProgressBartitle = styled.span``
