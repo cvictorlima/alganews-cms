@@ -9,12 +9,16 @@ export default function UserView () {
     console.log(userId)
   },[])
 
-  return <div style= {{display:'flex', gap: '10px'}}>
+  return <div style= {{display:'flex', gap: '10px', alignItems: 'center'}}>
     <h1>Usuário{userId}</h1>
     {
       key &&
-        <h1>chave: {key} </h1>
+        <>
+          <h1>chave: {key} </h1>
+          <p>soma: {Number(userId) + Number(key)} </p>
+        </>
     }
+
 
     
   </div>
