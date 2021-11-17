@@ -7,14 +7,16 @@ import UserView from './views/User.view';
 import NotFound from './views/NotFound404.view';
 import Home from './views/Home.view';
 import Calc from './views/Calc.view';
+import Navbar from './components/NavBar';
 
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <div>React Router Experiment</div>
+      <Navbar />
       <Routes>
-        <Route path='/home' element={<Home />} />
+        <Route path='/' element={<Home />} />
         <Route path= '/usuario/:userId/' element={<UserView />} >
           <Route path=':key' element={<UserView />}/>
         </Route>
