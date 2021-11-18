@@ -1,5 +1,5 @@
 import * as SC from './SessionController.styles'
-import avatar from '../../assets/avatar.jpg'
+import avatar from '../../../assets/avatar.jpg'
 import Button from '../Button/Button'
 
 export interface SessionControllerProps {

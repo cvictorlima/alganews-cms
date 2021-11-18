@@ -12,7 +12,7 @@ export default function Calc () {
 
   useEffect (()=> {
     console.log (query.get('operation'))
-  },[])
+  },[]) //eslint-disable-line
 
 
   return <div>
