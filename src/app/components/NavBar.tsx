@@ -10,13 +10,10 @@ export default function Navbar () {
         <NavLink to="/">início</NavLink>
       </Item>
       <Item>
-        <NavLink to="/artigo">artigos</NavLink>
+        <NavLink to="/editores">editores</NavLink>
       </Item>
       <Item>
-        <NavLink to="/portfolio">portfólio</NavLink>
-      </Item>
-      <Item>
-        <NavLink to="/storage">storage</NavLink>
+        <NavLink to="/posts/criar">novo post</NavLink>
       </Item>
       <Item>
         <NavLink to="/usuario">usuário</NavLink>

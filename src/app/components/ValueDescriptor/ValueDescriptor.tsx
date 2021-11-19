@@ -4,7 +4,7 @@ export interface ValueDescriptorProps {
     description: string
     value: number
     color: 'primary' | 'default'
-    isCurrency: boolean
+    isCurrency?: boolean
 }
 
 export default function ValueDescriptor (props: ValueDescriptorProps) { 

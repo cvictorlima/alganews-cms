@@ -5,7 +5,7 @@ export interface CircleChartProps {
   progress: number
   caption?: string
   theme?: 'default' | 'primary'
-  strokeWidth: number
+  strokeWidth?: number
 }
 
 function CircleChart(props:CircleChartProps) {
@@ -19,7 +19,7 @@ function CircleChart(props:CircleChartProps) {
   const STROKE_COLOR = THEME
 
   const CENTER = props.size / 2
-  const RADIUS = props.size / 2 - props.strokeWidth / 2
+  const RADIUS = props.size / 2 - STROKE_WIDTH / 2
   const CIRCUMFERENCE = 2 * Math.PI * RADIUS
 
   // estado de offset

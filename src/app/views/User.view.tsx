@@ -1,8 +1,11 @@
 import { useEffect } from "react"
 import { useParams } from "react-router"
+import usePageTitle from "../../core/hooks/usePageTitle";
 import DefaultLayout from "../layouts/Default/Default.layout"
 
 export default function UserView () {
+
+  usePageTitle('Usuário')
 
   const { userId } = useParams ();
 
