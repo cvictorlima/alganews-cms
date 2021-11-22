@@ -3,14 +3,16 @@ import * as C from './Confirm.styles'
 
 export interface ConfirmProps {
   question: string
+  onConfirm: () => any
+  onCancel: () => any
 }
 
-export default function Confirm ({question}: ConfirmProps) {
+export default function Confirm (props: ConfirmProps) {
   return <C.Wrapper>
-    <C.Question>{question}</C.Question>
+    <C.Question>{props.question}</C.Question>
     <C.ButtonWrapper>
-      <Button variant= 'danger' label= 'Não' />
-      <Button variant= 'primary' label= 'Sim' />
+      <Button variant= 'danger' label= 'Não' onClick= {props.onCancel} />
+      <Button variant= 'primary' label= 'Sim' onClick= {props.onConfirm} />
     </C.ButtonWrapper>
     
   </C.Wrapper>
