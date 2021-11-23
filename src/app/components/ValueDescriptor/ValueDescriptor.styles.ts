@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 
 const COLOR = {
-    primary: '#274060',
-    default: '#0099FF'
+    default: '#274060',
+    primary: '#0099FF'
 }
 
 export const Wrapper = styled.div<{
@@ -13,7 +13,7 @@ export const Wrapper = styled.div<{
     
     span.Description {
         font-size: 12px;
-        color: ${COLOR.primary};
+        color: ${COLOR.default};
     };
 
     span.Currency {

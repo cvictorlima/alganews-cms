@@ -9,17 +9,19 @@ interface InfoProps {
 }
 
 export default function info (props: InfoProps) {
-  confirmAlert({
-    closeOnEscape: true,
-    
-    overlayClassName: 'info-overlay',
-    customUI: () => {
-      return (
-        <Info 
-          title = {props.title}
-          description = {props.description}
-        />
-      );
-    }
-  });
+  setTimeout(()=> {
+    confirmAlert({
+      closeOnEscape: true,
+      
+      overlayClassName: 'info-overlay',
+      customUI: () => {
+        return (
+          <Info 
+            title = {props.title}
+            description = {props.description}
+          />
+        );
+      }
+    });
+  },0)
 }

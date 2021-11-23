@@ -1,4 +1,5 @@
 import confirm from '../../../core/utils/confirm'
+import info from '../../../core/utils/infor'
 import Logo from '../../components/logo'
 import Navbar from '../../components/NavBar'
 import SessionController from '../../components/SessionController'
@@ -29,7 +30,13 @@ function DefaultLayout (props: DefaultLayoutProps) {
           description = 'dog desde sempre'
           onLogout = { ()=> {
             confirm({
-              title: 'Deseja realmente sair?'
+              title: 'Deseja realmente sair?',
+              onConfirm: () => {
+                info({
+                  title: 'Você foi deslogado',
+                  description: 'Você será redirecionado para a página de login'
+                })
+              },
             })
           }}
         />

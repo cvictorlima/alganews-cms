@@ -5,7 +5,7 @@ import Heading from "./Typography/Heading";
 export interface ErrorDisplayProps {
   title?: string
   description?: string
-  small: boolean
+  small?: boolean
 }
 
 export default function ErrorDisplay (props:ErrorDisplayProps) {

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './core/imports.css';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import UserView from './app/views/User.view';
+import EditorProfile from './app/views/EditorProfile.view';
 import NotFound from './app/views/NotFound404.view';
 import Home from './app/views/Home.view';
 import GlobalStyles from './core/GlobalStyles'
@@ -19,8 +19,8 @@ ReactDOM.render(
         <Route path='/' element={<Home />} />
         <Route path='/editores' element={<EditorsListView />} />
         <Route path='/posts/criar' element={<PostCreateView />} />
-        <Route path= '/usuario' element={<UserView />} >
-          <Route path=':userId' element={<UserView />}/>
+        <Route path= '/editores' element={<EditorProfile />} >
+          <Route path=':userId' element={<EditorProfile />}/>
         </Route>
         <Route path= '*' element= {<NotFound />}/>
       </Routes>
