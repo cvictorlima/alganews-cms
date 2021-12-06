@@ -1,0 +1,33 @@
+<mxfile host="65bd71144e">
+    <diagram id="RClkOGm7EILRA6Kc1mCK" name="Page-1">
+        <mxGraphModel dx="537" dy="436" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="14" style="edgeStyle=none;html=1;exitX=1.003;exitY=0.297;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitPerimeter=0;" parent="1" source="2" target="11" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="2" value="&lt;h2&gt;editors&lt;/h2&gt;&lt;h3&gt;&lt;span style=&quot;background-color: rgb(255 , 255 , 102)&quot;&gt;&lt;font color=&quot;#000000&quot;&gt;id&lt;/font&gt;&lt;/span&gt;&lt;/h3&gt;name&lt;br&gt;cidade&lt;br&gt;estado&lt;br&gt;email&lt;br&gt;nascimento&lt;br&gt;preview&lt;br&gt;descrição&lt;br&gt;celular&lt;br&gt;skills" style="whiteSpace=wrap;html=1;align=center;" parent="1" vertex="1">
+                    <mxGeometry x="90" y="155" width="120" height="240" as="geometry"/>
+                </mxCell>
+                <mxCell id="15" style="edgeStyle=none;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1.014;entryY=0.664;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="3" target="11" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="470" y="220"/>
+                            <mxPoint x="470" y="248"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="3" value="&lt;h2&gt;skills&lt;/h2&gt;&lt;h3&gt;&lt;span style=&quot;background-color: rgb(255 , 255 , 102)&quot;&gt;&lt;font color=&quot;#000000&quot;&gt;id&lt;/font&gt;&lt;/span&gt;&lt;/h3&gt;&lt;div&gt;&lt;span&gt;skill_name&lt;/span&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;align=center;" parent="1" vertex="1">
+                    <mxGeometry x="510" y="155" width="120" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" value="&lt;h2&gt;editor_skills&lt;/h2&gt;&lt;h3&gt;&lt;span style=&quot;background-color: rgb(255 , 255 , 102)&quot;&gt;&lt;font color=&quot;#000000&quot;&gt;editor_id&lt;br&gt;skill_id&lt;/font&gt;&lt;/span&gt;&lt;/h3&gt;skill_lvl" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="305" y="155" width="120" height="140" as="geometry"/>
+                </mxCell>
+                <mxCell id="16" value="&lt;h1&gt;Alganews&lt;/h1&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="90" y="70" width="130" height="50" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
