@@ -1,7 +1,6 @@
 import styled from "styled-components"
 import { Editor } from "../../core/utils/Editors"
 import FieldDescriptor from "../components/FieldDescriptor/FieldDescriptor"
-import Info from "../components/Info/Info"
 import Profile from "../components/Profile"
 import ProgressBar from "../components/ProgressBar/ProgressBar"
 import Paragraph from "../components/Typography/Paragraph"

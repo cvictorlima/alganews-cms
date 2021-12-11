@@ -1,10 +1,21 @@
 import styled from "styled-components";
 import { Editor } from "../../core/utils/Editors";
 import Profile from "../components/Profile";
+import { useEffect } from "react";
+import PostService from "../../sdk/services/Post.service";
 
 export default function EditorsList () {
+  useEffect(() => {
+    const posts = PostService.getAllPosts({
+      size: 20,
+      page: 2,
+      sort:['id', 'desc']
+    })
+    console.log(posts)
+  },[])
 
-
+  // const editors = UserService.getAllEditors()
+  
   return <EditorsListWrapper>
     {
       Editor.map((E)=> <Profile id= {E.id} name= {E.name} description= {E.preview} key= {E.id} /> )
