@@ -1,9 +1,12 @@
+import { transparentize } from "polished"
+import { useEffect, useState } from "react"
+import { useParams } from "react-router-dom"
 import styled from "styled-components"
-import { Editor } from "../../core/utils/Editors"
+import getEditorDescription from "../../core/utils/getEditorDescription"
+import { User } from "../../sdk/@Types/User"
+import UserService from "../../sdk/services/User.service"
 import FieldDescriptor from "../components/FieldDescriptor/FieldDescriptor"
-import Profile from "../components/Profile"
 import ProgressBar from "../components/ProgressBar/ProgressBar"
-import Paragraph from "../components/Typography/Paragraph"
 import ValueDescriptor from "../components/ValueDescriptor/ValueDescriptor"
 
 interface EditorProfileProps {
@@ -12,97 +15,148 @@ interface EditorProfileProps {
 }
 
 export default function EditorProfile (props:EditorProfileProps) {
-var array = [1]
-Editor.map((E)=> {
-  array.push(E.id)
-  if (E.id === props.userId)
-    return E
-})
-const selectedEditor = Editor[props.userId-1]
+  const {id} = useParams()
+  const [editor, setEditor] = useState<User.EditorDetailed>()
 
-if (array.includes(props.userId))
-  return <Wrapper>
-            <Profile id={selectedEditor.id} name= {selectedEditor.name} description={selectedEditor.preview} key= {selectedEditor.id} />  
-            <InfoWrapper>
-              <ProfileWrapper>
-                <Paragraph> {selectedEditor.description} </Paragraph>
-                <ProgressBar 
-                title= {Object.keys(selectedEditor.skills)[0]} 
-                theme='primary' 
-                progress= {Object.values(selectedEditor.skills)[0]} 
-                />
-                <ProgressBar 
-                title= {Object.keys(selectedEditor.skills)[1]} 
-                theme='primary' 
-                progress= {Object.values(selectedEditor.skills)[1]} 
-                />
-                <ProgressBar 
-                title= {Object.keys(selectedEditor.skills)[2]} 
-                theme='primary' 
-                progress= {Object.values(selectedEditor.skills)[2]} 
-                />
-              </ProfileWrapper>
-              <FieldsWrapper>
-                <div style= {{display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
-                <FieldDescriptor field= 'cidade:' value= {selectedEditor.cidade} />
-                <FieldDescriptor field= 'estado:' value= {selectedEditor.estado} />
-                </div>
-                {
-                  !props.hidePersonalData && <>
-                    <FieldDescriptor field= 'celular:' value= {selectedEditor.celular} />
-                <FieldDescriptor field= 'email:' value= {selectedEditor.email} />
-                <FieldDescriptor field= 'data de nascimento:' value= {selectedEditor.nascimento} />
-                  </>
-                  
-                }
-                
-              </FieldsWrapper>
-            </InfoWrapper>
-            {
-              !props.hidePersonalData && <ValuesWrapper>
-              <ValueDescriptor color= 'default' description= 'palavras nesta semana:' value= {20354} />
-              <ValueDescriptor isCurrency color= 'primary' description= 'ganhos na semana:' value= {203.54} />
-              <ValueDescriptor color= 'default' description= 'palavras no mês:' value= {140854} />
-              <ValueDescriptor isCurrency color= 'primary' description= 'ganhos no mês:' value= {1408.54} />
-              <ValueDescriptor color= 'default' description= 'total de palavras:' value= {12484356} />
-              <ValueDescriptor isCurrency color= 'primary' description= 'ganhos sempre:' value= {124843.56} />
-            </ValuesWrapper>
-            }
-          </Wrapper>
-else 
-  throw new Error ('Perfil não encontrado')
-    // return <div style= {{ display: 'flex', justifyContent: 'center'}}>
-    //   <Info title= 'Perfil não encontrado' description= 'Este perfil de editor não existe' />
-    // </div>
+  useEffect(() => {
+    UserService
+      .getExistingEditor(Number(id))
+      .then(setEditor)
+  }, [id])
+
+  if (!editor)
+    return null
+
+  return <EditorProfileWrapper>
+    <EditorHeadline>
+      <Avatar src={editor.avatarUrls.small} />
+      <Name>{editor.name}</Name>
+      <Description>{getEditorDescription(new Date(editor.createdAt))}</Description>
+    </EditorHeadline>
+
+    <Divisor />
+
+    <EditorFeatures>
+      <PersonalInfo>
+        <Biography>{editor.bio}</Biography>
+        <Skills>
+          {
+            editor.skills?.map(skill => {
+              return <ProgressBar
+                progress={skill.percentage}
+                title={skill.name}
+                theme={'primary'}
+              />
+            })
+          }
+        </Skills>
+      </PersonalInfo>
+      <ContactInfo>
+        <FieldDescriptor field={'Cidade'} value={editor.location.city} />
+        <FieldDescriptor field={'Estado'} value={editor.location.state} />
+        {
+          !props.hidePersonalData && <>
+            <FieldDescriptor field={'Telefone'} value={'+55 27 99900-9999'} />
+            <FieldDescriptor field={'Email'} value={'ana.castillo@redacao.algacontent.com'} />
+            <FieldDescriptor field={'Nascimento'} value={'26 de Dezembro de 1997 (22 anos)'} />
+          </>
+        }
+      </ContactInfo>
+    </EditorFeatures>
+    {
+      !props.hidePersonalData && <EditorEarnings>
+        <ValueDescriptor color={'default'} value={21452} description={'Palavras nesta semana'} />
+        <ValueDescriptor color={'default'} value={123234} description={'Palavras no mês'} />
+        <ValueDescriptor color={'default'} value={12312312} description={'Total de palavras'} />
+        <ValueDescriptor color={'primary'} value={545623.23} description={'Ganhos na semana'} isCurrency />
+        <ValueDescriptor color={'primary'} value={545623.23} description={'Ganhos no mês'} isCurrency />
+        <ValueDescriptor color={'primary'} value={545623.23} description={'Ganhos no total'} isCurrency />
+      </EditorEarnings>
+    }
+  </EditorProfileWrapper>
 }
 
-
-const Wrapper = styled.div`
+const EditorProfileWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 16px;
+  padding: 24px;
+  border: 1px solid ${transparentize(0.9, '#274060')};
 `
 
-const InfoWrapper = styled.div`
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 24px;
-
-`
-const ProfileWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+const EditorHeadline = styled.div`
+  display: grid;
+  align-items: center;
+  gap: 8px 16px;
+  grid-template-rows: 2;
+  grid-template-columns: 48px auto;
+  height: 48px;
 `
 
-const FieldsWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
+const Avatar = styled.img`
+  grid-row-start: 1;
+  grid-row-end: 3;
+  object-fit: contain;
+  width: 48px;
+  height: 48px;
 `
 
-const ValuesWrapper = styled.div`
+const Name = styled.h1`
+  font-size: 18px;
+  font-weight: 400;
+  grid-column-start: 2;
+` 
+
+const Description = styled.span`
+  font-size: 12px;
+  grid-column-start: 2;
+` 
+
+const Divisor = styled.div`
+  border-bottom: 1px solid  ${transparentize(0.9, '#274060')};
+`
+
+const EditorFeatures = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap:16px
+  grid-template-rows: 2;
+  gap: 24px;
+`
+
+const PersonalInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+`
+
+const Biography = styled.p`
+  font-size: 12px;
+  line-height: 20px;
+`
+
+const ContactInfo = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 0;
+  >* {
+    width: 100%;
+  }
+  &>:nth-child(1),
+  &>:nth-child(2) {
+    width: 50%;
+  }
+`
+
+const Skills = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+`
+
+const EditorEarnings = styled.div`
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-gap: 24px;
 `

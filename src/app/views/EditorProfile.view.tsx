@@ -7,17 +7,17 @@ import ErrorBoundary from "../components/ErrorBoundary";
 
 export default function UserView () {
 
-  const { userId } = useParams ();
+  const { id } = useParams ();
 
-  usePageTitle(`Editor ${userId}`)
+  usePageTitle(`Editor ${id}`)
   
   useEffect(()=>{
-    console.log(userId)
+    console.log(id)
   },[]) //eslint-disable-line
 
   return <DefaultLayout>
     <ErrorBoundary>
-      <EditorProfile userId= {Number(userId)} />    
+      <EditorProfile userId= {Number(id)} />    
     </ErrorBoundary>
   </DefaultLayout>
 }
