@@ -45,7 +45,7 @@ ReactDOM.render(
         <Route path='/editores' element={<EditorsListView />} />
         <Route path='/posts/criar' element={<PostCreateView />} />
         <Route path= '/editores' element={<EditorProfile />} >
-          <Route path=':userId' element={<EditorProfile />}/>
+          <Route path=':id' element={<EditorProfile />}/>
         </Route>
         <Route path= '*' element= {<NotFound />}/>
       </Routes>
