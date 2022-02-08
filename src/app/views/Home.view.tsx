@@ -1,5 +1,6 @@
 
 import usePageTitle from "../../core/hooks/usePageTitle"
+import ErrorBoundary from "../components/ErrorBoundary";
 import PostsList from "../features/PostsList";
 import UserEarnings from "../features/UserEarnings";
 import UserPerformance from "../features/UserPerformance";
@@ -14,7 +15,9 @@ export default function Home () {
       <UserTogTags />
       <UserEarnings />
     </div>
-    <UserPerformance />
+    <ErrorBoundary component={'performance'} >
+      <UserPerformance />
+    </ErrorBoundary>
     <PostsList />
   </DefaultLayout>
 }

@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Metric } from "../../sdk/@Types/Metric";
 import MetricService from "../../sdk/services/Metric.service";
-import UserService from "../../sdk/services/User.service";
 import CircleChart from "../components/CircleChart";
 
 export default function UserTogTags () {
@@ -22,6 +21,7 @@ export default function UserTogTags () {
     {
       topTags.map((tag, i) => {
         return <CircleChart 
+        key={i}
         progress={tag.percentage} 
         theme= {i === 0 ? 'primary' : 'default' }
         size={88} 
