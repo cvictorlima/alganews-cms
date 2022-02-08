@@ -17,7 +17,7 @@ export default function UserView () {
 
   return <DefaultLayout>
     <ErrorBoundary>
-      <EditorProfile userId= {Number(id)} />    
+      <EditorProfile />    
     </ErrorBoundary>
   </DefaultLayout>
 }

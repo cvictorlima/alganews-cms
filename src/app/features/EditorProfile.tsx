@@ -10,7 +10,6 @@ import ProgressBar from "../components/ProgressBar/ProgressBar"
 import ValueDescriptor from "../components/ValueDescriptor/ValueDescriptor"
 
 interface EditorProfileProps {
-  userId: number
   hidePersonalData?: boolean
 }
 
