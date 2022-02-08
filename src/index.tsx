@@ -10,6 +10,31 @@ import GlobalStyles from './core/GlobalStyles'
 import EditorsListView from './app/views/EditorsList.view';
 import PostCreateView from './app/views/PostCreate.view';
 
+async function getDataFromAPI() {
+  try{
+    const response = await fetch ('http://localhost:8080/posts', {
+      method: 'POST',
+      headers:{
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        title: 'Olá, mundo',
+        body: 'Lorem Ipsum dolor sit amet'
+      })
+    })
+    console.log('Response:', response)
+    if (response.status >= 400) { //Define which response code you consider as error, instead of relying on what the fetch API considers as error
+      throw new Error(await response.json())
+    }
+    const posts = await response.json()
+    console.log('Sucesso')
+    console.log(posts)
+  } catch (error) {
+    console.log('Houve erro')
+    console.log(error.message)
+  }
+}
+
 
 ReactDOM.render(
   <React.StrictMode>
