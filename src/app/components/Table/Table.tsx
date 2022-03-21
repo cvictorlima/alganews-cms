@@ -1,9 +1,21 @@
-import { transparentize } from "polished"
+import { mdiChevronLeft, mdiChevronRight } from "@mdi/js"
+import Icon from "@mdi/react"
+import { size, transparentize } from "polished"
+import { useEffect } from "react"
+import ReactPaginate from "react-paginate"
 import { TableInstance } from "react-table"
+import Button from "../Button/Button"
 import NoData from "../NoData/NoData"
 import * as T from './Table.styles'
 
-export default function Table<T extends object> ({instance}: {instance: TableInstance<T>}) {
+interface TableProps <T extends object>  {
+  instance: TableInstance<T>
+  onPaginate?: (newPage: number) => any
+}
+
+export default function Table<T extends object> ({
+  instance, onPaginate
+}:TableProps<T>) {
 
   const {
     getTableProps,
@@ -11,7 +23,20 @@ export default function Table<T extends object> ({instance}: {instance: TableIns
     headerGroups,
     rows,
     prepareRow,
+    pageOptions,
+    pageCount,
+    gotoPage,
+    state: {
+      pageIndex,
+    }
   } = instance
+
+  useEffect(() => {
+    onPaginate &&
+      onPaginate(pageIndex)
+  },[pageIndex, onPaginate])
+
+  console.log(pageOptions)
 
   return (
     <>
@@ -54,6 +79,18 @@ export default function Table<T extends object> ({instance}: {instance: TableIns
         <NoData height= {360}/>
       </div>
     }
+
+    <T.TablePagination>
+      <ReactPaginate 
+        pageCount={pageCount}
+        onPageChange={page => gotoPage(page.selected)}
+        marginPagesDisplayed = {2}
+        pageRangeDisplayed ={4}
+        nextLabel={<Icon path={mdiChevronRight} size={'16px'} />}
+        previousLabel={<Icon path={mdiChevronLeft} size={'16px'} />}
+      />
+    </T.TablePagination>
+
     </>
   )
 }

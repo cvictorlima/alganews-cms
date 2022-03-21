@@ -1,27 +1,45 @@
 import { mdiOpenInNew } from "@mdi/js"
 import Icon from "@mdi/react"
-import { useEffect } from "@storybook/addons"
 import { format, parseISO } from "date-fns"
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
+import Skeleton from "react-loading-skeleton"
+import 'react-loading-skeleton/dist/skeleton.css'
+import { useNavigate } from "react-router-dom"
 import { Column, useTable } from "react-table"
-import { Post } from "../../sdk/@Types/Post"
-import PostService from "../../sdk/services/Post.service"
+import withBoundary from "../../core/hoc/withBoundary"
+import modal from "../../core/utils/modal"
+import { Post, PostService } from "algatest01-sdk"
+import Loading from "../components/Loading"
+import PostTitleAnchor from "../components/PostTitleAnchor"
 import Table from "../components/Table/Table"
+import PostPreview from "./PostPreview"
 
 
-export default function PostsList () {
+function PostsList () {
   const [posts, setPosts] = useState<Post.Paginated> ()
+  const [error, setError] = useState<Error>()
+  const [page, setPage] = useState(0)
+  const [loading, setLoading] = useState(false)
 
   useEffect(()=> {
+    setLoading(true)
     PostService
       .getAllPosts({
-        page: 0,
+        page,
         size: 7,
         showAll: true,
         sort: ['createdAt', 'desc']
       })
       .then (setPosts)
+      .catch(error => {
+        setError(new Error(error.message)
+        )
+      })
+      .finally(() => {setLoading(false)})
   },[])
+
+  if (error)
+    throw error
 
   const columns = useMemo<Column<Post.Summary>[]>(
     () => [
@@ -43,7 +61,8 @@ export default function PostsList () {
               textAlign: 'left', 
               display: 'flex', 
               alignItems: 'center', 
-              gap: '8px' 
+              gap: '8px',
+              maxWidth: 270
             }}
           >
             <img 
@@ -53,7 +72,16 @@ export default function PostsList () {
               alt={props.row.original.editor.name} 
               title={props.row.original.editor.name} 
             />
-            {props.value}
+            <PostTitleAnchor
+              title={props.value}
+              href={`/posts/${props.row.original.id}`}
+              onClick={(e) => {
+                e.preventDefault();
+                modal({children: <PostPreview postId={props.row.original.id} />})
+              }}
+            >
+              {props.value}
+            </PostTitleAnchor>
         </div>
         ),
       },
@@ -102,8 +130,32 @@ export default function PostsList () {
 
   const instance = useTable<Post.Summary>({
     data: posts?.content || [], 
-    columns
+    columns,
+    manualPagination: true,
+    initialState: { pageIndex: 0 },
+    pageCount: posts?.totalPages
   });
 
-  return <Table instance = {instance} />
+  if(!posts)
+    return (
+      <div>
+        <Skeleton height={32} />
+        <Skeleton height={40} />
+        <Skeleton height={40} />
+        <Skeleton height={40} />
+        <Skeleton height={40} />
+        <Skeleton height={40} />
+        <Skeleton height={40} />
+        <Skeleton height={40} />
+      </div>);
+
+  return <>
+  <Loading show= {loading} />
+  <Table 
+    instance = {instance} 
+    onPaginate = {setPage}
+  />
+  </>
 }
+
+export default withBoundary(PostsList, 'lista de posts')

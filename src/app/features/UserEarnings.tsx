@@ -1,21 +1,35 @@
 import { useEffect, useState } from "react";
+import Skeleton from "react-loading-skeleton";
+import 'react-loading-skeleton/dist/skeleton.css'
 import styled from "styled-components";
-import { User } from "../../sdk/@Types/User";
-import UserService from "../../sdk/services/User.service";
+import withBoundary from "../../core/hoc/withBoundary";
+import { User, UserService } from "algatest01-sdk";
 import ValueDescriptor from "../components/ValueDescriptor/ValueDescriptor";
 
-export default function UserEarnings () {
+function UserEarnings () {
 
   const [user, setUser] = useState<User.Detailed>()
+  const [error, setError] = useState<Error>()
 
   useEffect(() => {
     UserService
       .getDetailedUser(7)
       .then(setUser)
+      .catch(error => {
+        setError(new Error(error.message))
+      })
   }, [])
 
+  if (error)
+  throw error
+
   if (!user)
-    return null
+    return <UserEarningsWrapper style={{height: '123px'}} >
+      <Skeleton width={150} height={40} />
+      <Skeleton width={150} height={40} />
+      <Skeleton width={150} height={40} />
+      <Skeleton width={150} height={40} />
+    </UserEarningsWrapper>
 
   return <UserEarningsWrapper>
     <ValueDescriptor color= 'primary' description= 'ganhos no mes' value={user.metrics.monthlyEarnings} isCurrency  />
@@ -30,3 +44,5 @@ display: grid;
 grid-template-columns: repeat(2, 1fr);
 gap: 16px
 `
+
+export default withBoundary(UserEarnings, 'ganhos do usuário')

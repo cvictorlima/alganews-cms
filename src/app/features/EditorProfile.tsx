@@ -1,10 +1,10 @@
+
+import { User, UserService } from "algatest01-sdk"
 import { transparentize } from "polished"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import styled from "styled-components"
 import getEditorDescription from "../../core/utils/getEditorDescription"
-import { User } from "../../sdk/@Types/User"
-import UserService from "../../sdk/services/User.service"
 import FieldDescriptor from "../components/FieldDescriptor/FieldDescriptor"
 import ProgressBar from "../components/ProgressBar/ProgressBar"
 import ValueDescriptor from "../components/ValueDescriptor/ValueDescriptor"

@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import getEditorDescription from "../../core/utils/getEditorDescription";
-import { User } from "../../sdk/@Types/User";
-import UserService from "../../sdk/services/User.service";
+import { User, UserService } from "algatest01-sdk";
 import Profile from "../components/Profile";
 
 export default function EditorsList () {
