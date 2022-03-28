@@ -1,10 +1,11 @@
 
-import { User, UserService } from "algatest01-sdk"
 import { transparentize } from "polished"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import styled from "styled-components"
 import getEditorDescription from "../../core/utils/getEditorDescription"
+import { User } from "../../sdk/@Types/User"
+import UserService from "../../sdk/services/User.service"
 import FieldDescriptor from "../components/FieldDescriptor/FieldDescriptor"
 import ProgressBar from "../components/ProgressBar/ProgressBar"
 import ValueDescriptor from "../components/ValueDescriptor/ValueDescriptor"
@@ -13,8 +14,8 @@ interface EditorProfileProps {
   hidePersonalData?: boolean
 }
 
-export default function EditorProfile (props:EditorProfileProps) {
-  const {id} = useParams()
+export default function EditorProfile(props: EditorProfileProps) {
+  const { id } = useParams()
   const [editor, setEditor] = useState<User.EditorDetailed>()
 
   useEffect(() => {
@@ -104,12 +105,12 @@ const Name = styled.h1`
   font-size: 18px;
   font-weight: 400;
   grid-column-start: 2;
-` 
+`
 
 const Description = styled.span`
   font-size: 12px;
   grid-column-start: 2;
-` 
+`
 
 const Divisor = styled.div`
   border-bottom: 1px solid  ${transparentize(0.9, '#274060')};

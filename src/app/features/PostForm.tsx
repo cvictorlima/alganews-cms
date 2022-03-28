@@ -1,4 +1,3 @@
-import { PostService } from "algatest01-sdk"
 import { useEffect } from "react"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
@@ -6,6 +5,7 @@ import { Tag } from "react-tag-input"
 import styled from "styled-components"
 import countWordsInMarkdown from "../../core/utils/countWordsInMarkdown"
 import info from "../../core/utils/infor"
+import { PostService } from "../../sdk/services"
 import Button from "../components/Button/Button"
 import ImageUpload from "../components/ImageUpload"
 import Input from "../components/Input/Input"
@@ -78,7 +78,7 @@ export default function PostForm(props: PostFormProps) {
 
   function fetchPost(postId: number) {
     PostService
-      .getDetailedPost(postId)
+      .getExistingPost(postId)
       .then(post => {
         setTitle(post.title)
         setImageUrl(post.imageUrls.default)

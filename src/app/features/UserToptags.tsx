@@ -3,12 +3,13 @@ import Skeleton from "react-loading-skeleton";
 import styled from "styled-components";
 import 'react-loading-skeleton/dist/skeleton.css'
 import withBoundary from "../../core/hoc/withBoundary";
-import { Metric, MetricService } from "algatest01-sdk";
 import CircleChart from "../components/CircleChart";
+import { MetricService } from "../../sdk/services";
+import { Metric } from "../../sdk/@Types";
 
-function UserTogTags () {
+function UserTogTags() {
 
-  const [topTags, setTopTags] = useState<Metric.EditorTagRatio> ([])
+  const [topTags, setTopTags] = useState<Metric.EditorTagRatio>([])
   const [error, setError] = useState<Error>()
 
   useEffect(() => {
@@ -19,27 +20,27 @@ function UserTogTags () {
         setError(new Error(error.message)
         )
       })
-  },[])
+  }, [])
 
   if (error)
     throw error
 
   if (!topTags.length)
     return <UserTopTagsWrapper>
-      <Skeleton height={88} width= {88} circle />
-      <Skeleton height={88} width= {88} circle />
-      <Skeleton height={88} width= {88} circle />
+      <Skeleton height={88} width={88} circle />
+      <Skeleton height={88} width={88} circle />
+      <Skeleton height={88} width={88} circle />
     </UserTopTagsWrapper>
 
   return <UserTopTagsWrapper>
     {
       topTags.map((tag, i) => {
-        return <CircleChart 
-        key={i}
-        progress={tag.percentage} 
-        theme= {i === 0 ? 'primary' : 'default' }
-        size={88} 
-        caption= {tag.tagName} />
+        return <CircleChart
+          key={i}
+          progress={tag.percentage}
+          theme={i === 0 ? 'primary' : 'default'}
+          size={88}
+          caption={tag.tagName} />
       })
     }
   </UserTopTagsWrapper>

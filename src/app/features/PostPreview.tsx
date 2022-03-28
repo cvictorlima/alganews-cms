@@ -1,10 +1,11 @@
-import { Post, PostService } from "algatest01-sdk"
 import { useEffect, useState } from "react"
 import styled from "styled-components"
 import withBoundary from "../../core/hoc/withBoundary"
 import confirm from "../../core/utils/confirm"
 import info from "../../core/utils/infor"
 import modal from "../../core/utils/modal"
+import { Post } from "../../sdk/@Types"
+import { PostService } from "../../sdk/services"
 import Button from "../components/Button/Button"
 import Loading from "../components/Loading"
 import MarkdownEditor from "../components/MarkdownEditor"
@@ -34,10 +35,10 @@ function PostPreview(props: PostPreviewProps) {
   useEffect(() => {
     setLoading(true)
     PostService
-      .getDetailedPost(props.postId)
+      .getExistingPost(props.postId)
       .then(setPost)
       .finally(() => { setLoading(false) })
-  }, [])
+  }, [props.postId])
 
   if (loading)
     return <Loading show />

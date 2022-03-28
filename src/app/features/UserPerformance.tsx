@@ -1,11 +1,11 @@
-import { MetricService } from "algatest01-sdk";
 import { useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
 import withBoundary from "../../core/hoc/withBoundary";
 import transformEditorMonthlyEarningsIntoChartJS from "../../core/utils/transformEditorMonthlyEarningsIntoChartJS";
+import { MetricService } from "../../sdk/services";
 import Chart, { ChartProps } from "../components/Chart/Chart";
 
-function UserPerformance () {
+function UserPerformance() {
 
   const [editorEarnings, setEditorEarnings] = useState<ChartProps['data']>()
   const [error, setError] = useState<Error>()
@@ -18,7 +18,7 @@ function UserPerformance () {
       .catch(error => {
         setError(new Error(error.message))
       })
-  },[])
+  }, [])
 
   if (error)
     throw error
@@ -26,14 +26,14 @@ function UserPerformance () {
 
   if (!editorEarnings)
     return <div>
-      <Skeleton 
+      <Skeleton
         height={227}
       />
     </div>
-  
-  return <Chart 
-  title= "Média de performance nos últimos 12 meses"
-  data = {editorEarnings}
+
+  return <Chart
+    title="Média de performance nos últimos 12 meses"
+    data={editorEarnings}
   />
 }
 

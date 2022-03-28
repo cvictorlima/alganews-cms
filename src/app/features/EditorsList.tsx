@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import getEditorDescription from "../../core/utils/getEditorDescription";
-import { User, UserService } from "algatest01-sdk";
+import { User } from "../../sdk/@Types/User";
+import UserService from "../../sdk/services/User.service";
 import Profile from "../components/Profile";
 
-export default function EditorsList () {
+export default function EditorsList() {
 
   const [editors, setEditors] = useState<User.EditorSummary[]>([])
 
@@ -15,18 +16,18 @@ export default function EditorsList () {
   }, [])
 
   // const editors = UserService.getAllEditors()
-  
+
   return <EditorsListWrapper>
     {
-      editors.map((editor)=> {
-        return <Profile 
-          id= {editor.id} 
-          name= {editor.name} 
-          description= {getEditorDescription(new Date (editor.createdAt))} 
-          key= {editor.id}
+      editors.map((editor) => {
+        return <Profile
+          id={editor.id}
+          name={editor.name}
+          description={getEditorDescription(new Date(editor.createdAt))}
+          key={editor.id}
           avatarUrl={editor.avatarUrls.small}
-          /> 
-        })
+        />
+      })
     }
   </EditorsListWrapper>
 }

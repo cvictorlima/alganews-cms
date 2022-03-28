@@ -3,12 +3,11 @@ import MarkdownIt from "markdown-it";
 import MdEditor, { Plugins } from 'react-markdown-editor-lite'
 import 'react-markdown-editor-lite/lib/index.css'
 import FileService from "../../../sdk/services/File.service";
-
-MdEditor.unuse (Plugins.FontUnderline)
+MdEditor.unuse(Plugins.FontUnderline)
 
 const parser = new MarkdownIt()
 const defaultRender = parser.renderer.rules.link_open ||
-  function(tokens: any, idx: any, options: any, env: any, self: any) {
+  function (tokens: any, idx: any, options: any, env: any, self: any) {
     return self.renderToken(tokens, idx, options);
   };
 
@@ -29,29 +28,29 @@ export interface MarkdownEditorProps {
   readOnly?: boolean
 }
 
-export default function MarkdownEditor (props:MarkdownEditorProps) {
+export default function MarkdownEditor(props: MarkdownEditorProps) {
   async function handleImageUpload(file: File) {
     const fileUrl = await FileService.upload(file)
     return fileUrl
 
   }
 
-  return <MdEditor 
-    style= {{ height: props.readOnly ? 'auto' : 300 }}
+  return <MdEditor
+    style={{ height: props.readOnly ? 'auto' : 300 }}
     renderHTML={text => parser.render(text)}
     config={{
-      view:{
+      view: {
         html: false
       }
     }}
-    onChange= {({ text }) => props.onChange && props.onChange(text)}
+    onChange={({ text }) => props.onChange && props.onChange(text)}
     onImageUpload={handleImageUpload}
-    readOnly = {props.readOnly}
-    value= {props.value}
+    readOnly={props.readOnly}
+    value={props.value}
     view={props.readOnly ? {
       menu: false,
       md: false,
       html: true
-    }: undefined}
+    } : undefined}
   />
 }
