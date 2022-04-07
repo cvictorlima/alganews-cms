@@ -4,12 +4,11 @@ import { format, parseISO } from "date-fns"
 import { useEffect, useMemo, useState } from "react"
 import Skeleton from "react-loading-skeleton"
 import 'react-loading-skeleton/dist/skeleton.css'
-import { useNavigate } from "react-router-dom"
 import { Column, useTable } from "react-table"
 import withBoundary from "../../core/hoc/withBoundary"
+import usePosts from "../../core/hooks/usePosts"
 import modal from "../../core/utils/modal"
 import { Post } from "../../sdk/@Types"
-import { PostService } from "../../sdk/services"
 import Loading from "../components/Loading"
 import PostTitleAnchor from "../components/PostTitleAnchor"
 import Table from "../components/Table/Table"
@@ -17,30 +16,17 @@ import PostPreview from "./PostPreview"
 
 
 function PostsList() {
-  const [posts, setPosts] = useState<Post.Paginated>()
-  const [error, setError] = useState<Error>()
   const [page, setPage] = useState(0)
-  const [loading, setLoading] = useState(false)
+  const { loading, fetchPosts, paginatedPosts } = usePosts()
 
   useEffect(() => {
-    setLoading(true)
-    PostService
-      .getAllPosts({
-        page,
-        size: 7,
-        showAll: true,
-        sort: ['createdAt', 'desc']
-      })
-      .then(setPosts)
-      .catch(error => {
-        setError(new Error(error.message)
-        )
-      })
-      .finally(() => { setLoading(false) })
-  }, [])
-
-  if (error)
-    throw error
+    fetchPosts({
+      page,
+      size: 7,
+      showAll: true,
+      sort: ['createdAt', 'desc']
+    })
+  }, [fetchPosts, page])
 
   const columns = useMemo<Column<Post.Summary>[]>(
     () => [
@@ -130,14 +116,14 @@ function PostsList() {
   );
 
   const instance = useTable<Post.Summary>({
-    data: posts?.content || [],
+    data: paginatedPosts?.content || [],
     columns,
     manualPagination: true,
     initialState: { pageIndex: 0 },
-    pageCount: posts?.totalPages
+    pageCount: paginatedPosts?.totalPages
   });
 
-  if (!posts)
+  if (!paginatedPosts)
     return (
       <div>
         <Skeleton height={32} />

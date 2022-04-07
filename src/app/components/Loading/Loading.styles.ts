@@ -1,6 +1,4 @@
-import { Navigation } from './../../layouts/Default/Default.layout.styles';
-import styled from 'styled-components';
-
+import styled from "styled-components";
 
 export const LoadingWrapper = styled.div`
   position: fixed;
@@ -9,7 +7,7 @@ export const LoadingWrapper = styled.div`
   width: 100%;
   height: 100%;
 
-  background-color: rgba(0,0,0, .7);
+  background-color: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(5px);
   z-index: 99;
 
@@ -17,15 +15,15 @@ export const LoadingWrapper = styled.div`
   justify-content: center;
   align-items: center;
 
-  animation: .25 fade-in ease;
+  animation: 0.25 fade-in ease;
 
   @keyframes fade-in {
     from {
-      background-color: rgba(0,0,0,0);
+      background-color: rgba(0, 0, 0, 0);
       opacity: 0;
     }
     to {
-      background-color: rgba(0,0,0,.7);
+      background-color: rgba(0, 0, 0, 0.7);
       opacity: 1;
     }
   }
@@ -65,5 +63,4 @@ export const LoadingWrapper = styled.div`
       transform: rotate(360deg);
     }
   }
-
-`
+`;

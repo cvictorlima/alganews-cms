@@ -4,26 +4,26 @@ import Confirm from '../../app/components/Confirm/Confirm'
 
 
 interface ConfirmProps {
-  onConfirm?: () => any
-  onCancel?: () => any
+  onConfirm?: (...args: any[]) => any
+  onCancel?: (...args: any[]) => any
   title: string
 }
 
-export default function confirm (props: ConfirmProps) {
+export default function confirm(props: ConfirmProps) {
   confirmAlert({
     closeOnEscape: true,
-    
+
     overlayClassName: 'confirm-overlay',
     customUI: ({ onClose }) => {
       return (
-        <Confirm 
-          question = {props.title}
-          onConfirm= {()=> {
+        <Confirm
+          question={props.title}
+          onConfirm={() => {
             if (props.onConfirm)
               props.onConfirm()
             onClose()
           }}
-          onCancel={()=> {
+          onCancel={() => {
             if (props.onCancel)
               props.onCancel()
             onClose()

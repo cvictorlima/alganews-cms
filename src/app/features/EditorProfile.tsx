@@ -3,9 +3,8 @@ import { transparentize } from "polished"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import styled from "styled-components"
+import useSingleEditor from "../../core/hooks/useSingleEditor"
 import getEditorDescription from "../../core/utils/getEditorDescription"
-import { User } from "../../sdk/@Types/User"
-import UserService from "../../sdk/services/User.service"
 import FieldDescriptor from "../components/FieldDescriptor/FieldDescriptor"
 import ProgressBar from "../components/ProgressBar/ProgressBar"
 import ValueDescriptor from "../components/ValueDescriptor/ValueDescriptor"
@@ -16,13 +15,13 @@ interface EditorProfileProps {
 
 export default function EditorProfile(props: EditorProfileProps) {
   const { id } = useParams()
-  const [editor, setEditor] = useState<User.EditorDetailed>()
+  const { editor, fetchEditor } = useSingleEditor()
 
   useEffect(() => {
-    UserService
-      .getExistingEditor(Number(id))
-      .then(setEditor)
-  }, [id])
+    fetchEditor(Number(id))
+  }, [fetchEditor, id])
+
+
 
   if (!editor)
     return null
@@ -43,6 +42,7 @@ export default function EditorProfile(props: EditorProfileProps) {
           {
             editor.skills?.map(skill => {
               return <ProgressBar
+                key={skill.name}
                 progress={skill.percentage}
                 title={skill.name}
                 theme={'primary'}

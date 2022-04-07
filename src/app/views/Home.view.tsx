@@ -10,19 +10,9 @@ import DefaultLayout from "../layouts/Default/Default.layout"
 
 export default function Home() {
   usePageTitle('Home')
-  const { paginatedPosts, loading, fetchPosts } = usePosts()
-
-
-  useEffect(() => {
-    fetchPosts({ page: 1 })
-  }, [fetchPosts])
 
 
   return <DefaultLayout>
-    {paginatedPosts?.map((post) => (
-      <li key={post.id}>{post.title}</li>
-    ))}
-    {loading ? 'carregando' : 'finalizado'}
     <div style={{ display: "grid", gridTemplateColumns: '1fr 1fr', alignItems: 'center', gap: '32px' }}>
       <UserTogTags />
       <UserEarnings />

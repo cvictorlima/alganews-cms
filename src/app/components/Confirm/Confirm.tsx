@@ -7,13 +7,13 @@ export interface ConfirmProps {
   onCancel: () => any
 }
 
-export default function Confirm (props: ConfirmProps) {
+export default function Confirm(props: ConfirmProps) {
   return <C.Wrapper>
     <C.Question>{props.question}</C.Question>
     <C.ButtonWrapper>
-      <Button variant= 'danger' label= 'Não' onClick= {props.onCancel} />
-      <Button variant= 'primary' label= 'Sim' onClick= {props.onConfirm} />
+      <Button variant='danger' label='Não' onClick={props.onCancel} />
+      <Button variant='primary' label='Sim' onClick={props.onConfirm} />
     </C.ButtonWrapper>
-    
+
   </C.Wrapper>
 }

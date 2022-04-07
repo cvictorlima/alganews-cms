@@ -1,4 +1,3 @@
-import { fil } from "date-fns/locale";
 import MarkdownIt from "markdown-it";
 import MdEditor, { Plugins } from 'react-markdown-editor-lite'
 import 'react-markdown-editor-lite/lib/index.css'

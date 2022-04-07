@@ -1,4 +1,3 @@
-import { fetchPosts } from "./../store/Post.slice";
 import { useDispatch, useSelector } from "react-redux";
 import selectPaginatedPosts from "../selectors/selectPaginatedPosts";
 import selectPostsFetching from "../selectors/selectPostsFetching";
